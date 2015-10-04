@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7dae8ef2eb1843e7a9d13d6cb06dbe20" Name="Diagram1">
+        <EntityTypeShape EntityType="BookRentalModel.Account" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookRentalModel.AccountType" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookRentalModel.BookGender" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookRentalModel.Book" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookRentalModel.ShoppingCart" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="BookRentalModel.FK_dbo_Accounts_dbo_AccountTypes_AccountTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="BookRentalModel.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" ManuallyRouted="false" />
+        <AssociationConnector Association="BookRentalModel.FK_dbo_Books_dbo_BookGenders_BookGenderId" ManuallyRouted="false" />
+        <AssociationConnector Association="BookRentalModel.FK_ShoppingCarts_Books" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
