@@ -164,6 +164,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BooksRentalContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ShoppingCart.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
@@ -175,6 +178,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Documents\BooksImages\blank.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

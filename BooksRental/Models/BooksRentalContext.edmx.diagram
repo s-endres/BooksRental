@@ -14,6 +14,8 @@
         <AssociationConnector Association="BookRentalModel.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" ManuallyRouted="false" />
         <AssociationConnector Association="BookRentalModel.FK_dbo_Books_dbo_BookGenders_BookGenderId" ManuallyRouted="false" />
         <AssociationConnector Association="BookRentalModel.FK_ShoppingCarts_Books" />
+        <EntityTypeShape EntityType="BookRentalModel.Comment" Width="1.5" PointX="5.25" PointY="5.125" />
+        <AssociationConnector Association="BookRentalModel.FK_Comments_Comments" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

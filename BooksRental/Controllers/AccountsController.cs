@@ -78,8 +78,7 @@ namespace BooksRental.Controllers
                 List<Account> accounts = repository.GetByEmail(account.Email);
                 if (accounts.Count == 0)
                 {
-                    Utils objUtil = new Utils();
-                    account.Password = objUtil.Encript(account.Password);
+                    account.Password = Utils.Instance.Encript(account.Password);
                     repository.Add(account);
                     repository.SaveChanges();
                     return RedirectToAction("Index");
@@ -231,7 +230,6 @@ namespace BooksRental.Controllers
         [HttpPost]
         public ActionResult RecoverPassword(string Email)
         {
-            Utils objUtil = new Utils();
             Random rnd = new Random();
             List<Account> accounts = repository.GetByEmail(Email);
             string wasSend;
@@ -241,12 +239,12 @@ namespace BooksRental.Controllers
                 int intPass = rnd.Next(99999);
                 try
                 {
-                    accounts[0].Password = objUtil.Encript(intPass.ToString());
+                    accounts[0].Password = Utils.Instance.Encript(intPass.ToString());
                     repository.Edit(accounts[0]);
                     repository.SaveChanges();
 
                     string content = "Your new password is: " + intPass.ToString();
-                    wasSend = objUtil.SendEmail(Email, "Password Recovery", content).ToString();
+                    wasSend = Utils.Instance.SendEmail(Email, "Password Recovery", content).ToString();
                 }
                 catch
                 {
@@ -294,10 +292,9 @@ namespace BooksRental.Controllers
         {
             bool result = false;
             List<Account> accounts = repository.GetByEmail(pEmail);
-            Utils objUtil = new Utils();
             if (accounts.Count > 0)
             {
-                if (accounts[0].Password == objUtil.Encript(pPassword))
+                if (accounts[0].Password == Utils.Instance.Encript(pPassword))
                 {
                     return accounts[0];
                 }

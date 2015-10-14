@@ -11,31 +11,26 @@ namespace BooksRental.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Book
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
             this.ShoppingCarts = new HashSet<ShoppingCart>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int BookId { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 5)]
         public string Name { get; set; }
-        [Required]
-        [DataType(DataType.MultilineText)]
-        [StringLength(200, MinimumLength = 10)]
         public string Description { get; set; }
-        [Required]
-        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         public int BookGenderId { get; set; }
     
         public virtual BookGender BookGender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

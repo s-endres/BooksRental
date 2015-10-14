@@ -11,8 +11,7 @@ namespace BooksRental.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class BookGender
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +21,8 @@ namespace BooksRental.Models
         }
     
         public int BookGenderId { get; set; }
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "The length must be 50 max D:!")]
         public string Name { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
     }

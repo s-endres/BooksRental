@@ -39,6 +39,7 @@
     <Property Name="BookGenderId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="BookGender" Relationship="Self.FK_dbo_Books_dbo_BookGenders_BookGenderId" FromRole="Books" ToRole="BookGenders" />
     <NavigationProperty Name="ShoppingCarts" Relationship="BookRentalModel.FK_ShoppingCarts_Books" FromRole="Book" ToRole="ShoppingCart" />
+    <NavigationProperty Name="Comments" Relationship="BookRentalModel.FK_Comments_Comments" FromRole="Book" ToRole="Comment" />
   </EntityType>
   <EntityType Name="ShoppingCart">
     <Key>
@@ -110,6 +111,11 @@
       <End Role="Book" EntitySet="Books" />
       <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
     </AssociationSet>
+    <EntitySet Name="Comments" EntityType="BookRentalModel.Comment" />
+    <AssociationSet Name="FK_Comments_Comments" Association="BookRentalModel.FK_Comments_Comments">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_ShoppingCarts_Books">
     <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
@@ -119,6 +125,28 @@
         <PropertyRef Name="BookId" />
       </Principal>
       <Dependent Role="ShoppingCart">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="BookRentalModel.FK_Comments_Comments" FromRole="Comment" ToRole="Book" />
+  </EntityType>
+  <Association Name="FK_Comments_Comments">
+    <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
+    <End Type="BookRentalModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="Comment">
         <PropertyRef Name="BookId" />
       </Dependent>
     </ReferentialConstraint>

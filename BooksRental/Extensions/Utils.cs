@@ -11,7 +11,24 @@ namespace BooksRental.Extensions
 {
     public class Utils
     {
+        private static Utils instance;
 
+        private Utils() { }
+
+        public static Utils Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Utils();
+                }
+                return instance;
+            }
+        }
+
+
+        #region "Main Logic"        
         public string Encript(string pData)
         {
             MD5 md5 = System.Security.Cryptography.MD5.Create();
@@ -26,6 +43,7 @@ namespace BooksRental.Extensions
 
             return sb.ToString();
         }
+
 
         public bool SendEmail(string to, string title, string content)
         {
@@ -54,6 +72,20 @@ namespace BooksRental.Extensions
             }
             return wasSend;
         }
+        
+
+        protected void moveMyImage(HttpPostedFileBase ImageFile, string pName)
+        {
+            /*string[] name = ImageFile.FileName.Split('.');
+            var email = User.Identity.Name;
+            var fileName = pName + email.ToString() + DateTime.Now.ToString("MMddyyyyhhmmss") + "." + name[1];
+            var filePath = Path.Combine(Server.MapPath("~/Images/BugImages/"), fileName);
+            ImageFile.SaveAs(filePath);
+            var imageFilePath = "./../../Images/BugImages/" + fileName.ToString();
+            return imageFilePath.ToString();*/
+        }
+
+        #endregion Main Logic
 
     }
 }

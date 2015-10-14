@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BooksRental.Models;
 using BooksRental.Repositories;
+using System.IO;
 
 namespace BooksRental.Controllers
 {
@@ -49,10 +50,15 @@ namespace BooksRental.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookId,Name,Description,ImageUrl,BookGenderId")] Book book)
+        [Authorize()]
+        public ActionResult Create([Bind(Include = "BookId,Name,Description,ImageUrl,BookGenderId")] Book book, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
+                if (ImageFile != null)
+                {
+                    book.ImageUrl = moveMyImage(ImageFile);
+                }
                 repository.Add(book);
                 repository.SaveChanges();
                 return RedirectToAction("Index");
@@ -128,6 +134,17 @@ namespace BooksRental.Controllers
                 repository.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected string moveMyImage(HttpPostedFileBase ImageFile)
+        {
+            string[] name = ImageFile.FileName.Split('.');
+            var userId = User.Identity.Name;
+            var fileName = userId.ToString() + DateTime.Now.ToString("MMddyyyyhhmmss") + "." + name[1];
+            var filePath = Path.Combine(Server.MapPath("~/Documents/BooksImages/"), fileName);
+            ImageFile.SaveAs(filePath);
+            var imageName = fileName.ToString();
+            return imageName.ToString();
         }
     }
 }
