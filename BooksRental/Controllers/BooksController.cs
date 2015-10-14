@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using BooksRental.Models;
 using BooksRental.Repositories;
 using System.IO;
+using BooksRental.Extensions;
 
 namespace BooksRental.Controllers
 {
@@ -53,11 +54,11 @@ namespace BooksRental.Controllers
         [Authorize()]
         public ActionResult Create([Bind(Include = "BookId,Name,Description,ImageUrl,BookGenderId")] Book book, HttpPostedFileBase ImageFile)
         {
-            if (ModelState.IsValid)
+            if (book != null)
             {
                 if (ImageFile != null)
                 {
-                    book.ImageUrl = moveMyImage(ImageFile);
+                    book.ImageUrl = Utils.Instance.moveMyImage(ImageFile, User.Identity.Name);
                 }
                 repository.Add(book);
                 repository.SaveChanges();
@@ -134,17 +135,6 @@ namespace BooksRental.Controllers
                 repository.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        protected string moveMyImage(HttpPostedFileBase ImageFile)
-        {
-            string[] name = ImageFile.FileName.Split('.');
-            var userId = User.Identity.Name;
-            var fileName = userId.ToString() + DateTime.Now.ToString("MMddyyyyhhmmss") + "." + name[1];
-            var filePath = Path.Combine(Server.MapPath("~/Documents/BooksImages/"), fileName);
-            ImageFile.SaveAs(filePath);
-            var imageName = fileName.ToString();
-            return imageName.ToString();
         }
     }
 }

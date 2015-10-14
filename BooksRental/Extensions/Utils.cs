@@ -74,15 +74,15 @@ namespace BooksRental.Extensions
         }
         
 
-        protected void moveMyImage(HttpPostedFileBase ImageFile, string pName)
+        public string moveMyImage(HttpPostedFileBase ImageFile, string userId)
         {
-            /*string[] name = ImageFile.FileName.Split('.');
-            var email = User.Identity.Name;
-            var fileName = pName + email.ToString() + DateTime.Now.ToString("MMddyyyyhhmmss") + "." + name[1];
-            var filePath = Path.Combine(Server.MapPath("~/Images/BugImages/"), fileName);
+            string[] name = ImageFile.FileName.Split('.');
+            var fileName = userId + DateTime.Now.ToString("MMddyyyyhhmmss") + "." + name[1];
+            var path = HttpContext.Current.Server.MapPath("~/Documents/BooksImages/");
+            var filePath = Path.Combine(path, fileName);
             ImageFile.SaveAs(filePath);
-            var imageFilePath = "./../../Images/BugImages/" + fileName.ToString();
-            return imageFilePath.ToString();*/
+            var imageFilePath = fileName.ToString();
+            return imageFilePath.ToString();
         }
 
         #endregion Main Logic

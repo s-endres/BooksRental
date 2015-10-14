@@ -39,6 +39,5 @@ C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\bin\System.Web.WebPages.
 C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\bin\System.Web.WebPages.Razor.xml
 C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\bin\Antlr3.Runtime.pdb
 C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\bin\Newtonsoft.Json.xml
-C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\obj\Debug\BooksRental.csprojResolveAssemblyReference.cache
 C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\obj\Debug\BooksRental.dll
 C:\Users\Sfec\Documents\CODIGOS\BooksRental\BooksRental\obj\Debug\BooksRental.pdb

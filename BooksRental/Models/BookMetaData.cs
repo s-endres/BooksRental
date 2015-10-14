@@ -23,5 +23,6 @@ namespace BooksRental.Models
 
         public virtual BookGender BookGender { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

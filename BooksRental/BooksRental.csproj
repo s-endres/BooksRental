@@ -144,12 +144,14 @@
     <Compile Include="Models\AccountType.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountTypeMetaData.cs" />
     <Compile Include="Models\Book.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookGender.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookGenderMetaData.cs" />
     <Compile Include="Models\BookMetaData.cs" />
     <Compile Include="Models\BooksRentalContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -243,6 +245,7 @@
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Books\create2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
