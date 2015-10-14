@@ -140,6 +140,7 @@
     <Compile Include="Models\Account.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountMetaData.cs" />
     <Compile Include="Models\AccountType.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
@@ -149,6 +150,7 @@
     <Compile Include="Models\BookGender.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookMetaData.cs" />
     <Compile Include="Models\BooksRentalContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +169,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\ShoppingCart.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>

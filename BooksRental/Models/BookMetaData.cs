@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace BooksRental.Models
+{
+    public class BookMetaData
+    {
+        public int BookId { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 5)]
+        public string Name { get; set; }
+        [Required]
+        [DataType(DataType.MultilineText)]
+        [StringLength(200, MinimumLength = 10)]
+        public string Description { get; set; }
+        [Required]
+        [Display(Name = "Image")]
+        public string ImageUrl { get; set; }
+        public int BookGenderId { get; set; }
+
+        public virtual BookGender BookGender { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+    }
+}
