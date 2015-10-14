@@ -6,11 +6,51 @@
 
 <h2>Create</h2>
 
+<script>
+    
+    $(document).ready(function () {
+        $("#ImageFile").change(function () {
+            validateFileType();
+            readURL(this);
+        });
+    });
+
+    function validateFileType() {
+        var ext = $('#ImageFile').val().split('.').pop().toLowerCase();
+        var is = $('#ImageFile').val();
+        if ($.inArray(ext, ['png', 'jpg', 'jpeg']) == -1 && is != "") {
+            $('#fileError').text('The image can be only png, jpg or jpeg');
+            $('#fileError').show();
+            $('#submit').prop('disabled', true);
+        } else {
+            $('#submit').prop('disabled', false);
+            $('#fileError').hide();
+        }
+    }
+
+    function readURL(input) {
+        $("#imagesPreview").empty();
+        
+        if (!$("#fileError").is(":visible")) {
+            var files = $('#ImageFile')[0].files;
+            for (var i = 0, f; f = files[i]; i++) {
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#imagesPreview").append("<img id='blah' style='width:150px;height:250px' src=" + e.target.result + " alt='your image' />");
+                };
+
+                reader.readAsDataURL(f);
+            }
+        }
+    }
+</script>
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Book</h4>
         <hr />
@@ -50,7 +90,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" id="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

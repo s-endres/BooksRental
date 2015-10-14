@@ -8,122 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using BooksRental.Models;
 using BooksRental.Repositories;
-using System.IO;
-using BooksRental.Extensions;
 
 namespace BooksRental.Controllers
 {
-    public class BooksController : Controller
+    public class BookGendersController : Controller
     {
-        private BookRepository repository = new BookRepository();
+        private BookGenderRepository repository = new BookGenderRepository();
 
-        // GET: Books
+        // GET: BookGenders
         public ActionResult Index()
         {
-            var books = repository.GetAll();
-            return View(books);
+            return View(repository.GetAll());
         }
 
-        // GET: Books/Details/5
+        // GET: BookGenders/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = repository.Get(id);
-            if (book == null)
+            BookGender bookGender = repository.Get(id);
+            if (bookGender == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookGender);
         }
 
-        // GET: Books/Create
+        // GET: BookGenders/Create
         public ActionResult Create()
         {
-            ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name");
             return View();
         }
 
-        // POST: Books/Create
+        // POST: BookGenders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize()]
-        public ActionResult Create([Bind(Include = "BookId,Name,Description,BookGenderId")] Book book, HttpPostedFileBase ImageFile)
+        public ActionResult Create([Bind(Include = "BookGenderId,Name")] BookGender bookGender)
         {
             if (ModelState.IsValid)
             {
-                if (ImageFile != null)
-                {
-                    book.ImageUrl = Utils.Instance.moveMyImage(ImageFile, User.Identity.Name);
-                }
-                repository.Add(book);
+                repository.Add(bookGender);
                 repository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name", book.BookGenderId);
-            return View(book);
+            return View(bookGender);
         }
 
-        // GET: Books/Edit/5
+        // GET: BookGenders/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = repository.Get(id);
-            if (book == null)
+            BookGender bookGender = repository.Get(id);
+            if (bookGender == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name", book.BookGenderId);
-            return View(book);
+            return View(bookGender);
         }
 
-        // POST: Books/Edit/5
+        // POST: BookGenders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookId,Name,Description,ImageUrl,BookGenderId")] Book book)
+        public ActionResult Edit([Bind(Include = "BookGenderId,Name")] BookGender bookGender)
         {
             if (ModelState.IsValid)
             {
-                repository.Edit(book);
-                repository.SaveChanges();
+                repository.Edit(bookGender);
                 return RedirectToAction("Index");
             }
-            ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name", book.BookGenderId);
-            return View(book);
+            return View(bookGender);
         }
 
-        // GET: Books/Delete/5
+        // GET: BookGenders/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = repository.Get(id);
-            if (book == null)
+            BookGender bookGender = repository.Get(id);
+            if (bookGender == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(bookGender);
         }
 
-        // POST: Books/Delete/5
+        // POST: BookGenders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Book book = repository.Get(id);
-            repository.Remove(book);
+            BookGender bookGender = repository.Get(id);
+            repository.Remove(bookGender);
             repository.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -16,7 +16,6 @@ namespace BooksRental.Models
         [DataType(DataType.MultilineText)]
         [StringLength(200, MinimumLength = 10)]
         public string Description { get; set; }
-        [Required]
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         public int BookGenderId { get; set; }
