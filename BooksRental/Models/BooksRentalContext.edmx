@@ -48,6 +48,15 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="BookId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ShoppingCarts">
           <Key>
             <PropertyRef Name="AccountId" />
@@ -106,6 +115,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reviews_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShoppingCarts_Books">
           <End Role="Books" Type="Self.Books" Multiplicity="1" />
           <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="*" />
@@ -124,6 +145,7 @@
           <EntitySet Name="BookGenders" EntityType="Self.BookGenders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comments_Comments" Association="Self.FK_Comments_Comments">
             <End Role="Books" EntitySet="Books" />
@@ -140,6 +162,10 @@
           <AssociationSet Name="FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" Association="Self.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Books" Association="Self.FK_Reviews_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
           <AssociationSet Name="FK_ShoppingCarts_Books" Association="Self.FK_ShoppingCarts_Books">
             <End Role="Books" EntitySet="Books" />
@@ -190,6 +216,7 @@
           <NavigationProperty Name="BookGender" Relationship="Self.FK_dbo_Books_dbo_BookGenders_BookGenderId" FromRole="Books" ToRole="BookGenders" />
           <NavigationProperty Name="ShoppingCarts" Relationship="BookRentalModel.FK_ShoppingCarts_Books" FromRole="Book" ToRole="ShoppingCart" />
           <NavigationProperty Name="Comments" Relationship="BookRentalModel.FK_Comments_Comments" FromRole="Book" ToRole="Comment" />
+          <NavigationProperty Name="Reviews" Relationship="BookRentalModel.FK_Reviews_Books" FromRole="Book" ToRole="Review" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -266,6 +293,11 @@
             <End Role="Book" EntitySet="Books" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="BookRentalModel.Review" />
+          <AssociationSet Name="FK_Reviews_Books" Association="BookRentalModel.FK_Reviews_Books">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_ShoppingCarts_Books">
           <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
@@ -297,6 +329,28 @@
               <PropertyRef Name="BookId" />
             </Principal>
             <Dependent Role="Comment">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="BookRentalModel.FK_Reviews_Books" FromRole="Review" ToRole="Book" />
+        </EntityType>
+        <Association Name="FK_Reviews_Books">
+          <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="BookRentalModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Review">
               <PropertyRef Name="BookId" />
             </Dependent>
           </ReferentialConstraint>
@@ -361,6 +415,16 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="BookRentalModel.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

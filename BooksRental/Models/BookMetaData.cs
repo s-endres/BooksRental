@@ -12,9 +12,9 @@ namespace BooksRental.Models
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Es Requiredo D:!")]
         [DataType(DataType.MultilineText)]
-        [StringLength(200, MinimumLength = 10)]
+        [StringLength(200, MinimumLength = 10,ErrorMessage = "AHHH!")]
         public string Description { get; set; }
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }

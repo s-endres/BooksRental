@@ -9,18 +9,150 @@
                 <form id="modalForm">
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">Comment:</label>
-                        <input type="text" class="form-control" id="firstInput">
+                        <textarea class="form-control" id="comment"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label">Date:</label>
-                        <input type="date" id="commentDate" name="bday" min="2000-01-02">
+                        <input type="date" id="commentDate" name="bday" min="2000-01-02" class="form-control">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btnCancel" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnSave" class="btn btn-primary">Add Comment</button>
+                <button type="button" id="btnSave" class="btn btn-primary" onclick="addMyInfo()">Add Comment</button>
+                <button type="button" id="btnEdit" class="btn btn-primary" style="display:none">Edit</button>
             </div>
+            <input type="text" class="form-control" style="display:none" id="hiddenValue">
         </div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#dtComment tbody').on('click', '.glyphicon-remove-sign', function () {
+            $table
+                .row($(this).parents('tr'))
+                .remove()
+                .draw();
+        });
+
+        $('#commentModal').on('hidden.bs.modal', function () {
+            cleanModalForm();
+        })
+
+        $("#btnEdit").on("click", function () {
+            var gotError = validateMyForm();
+            if (gotError == 0) {
+                var index = $("#hiddenValue").val();
+                var d = $("#dtComment").DataTable()
+                .row(index)
+                .data();
+
+                d[0] = $("#comment").val();
+                d[1] = $("#commentDate").val();
+
+                $("#dtComment").DataTable()
+                .row(index)
+                .data(d)
+                .draw();
+
+                //Both are need to hide the mode successfully
+                $("#btnCancel").click();
+            }
+        })
+
+        $('#submit').on('click', function () {
+            debugger
+            doMyPost();
+        })
+
+    });
+
+    function editMyRow(object) {
+        var table = $("#dtComment").DataTable();
+        var myRow = $(object).closest('td').parent()[0];
+        var myIndex = table.row(myRow).index();
+        var d = table
+        .row(myIndex)
+        .data();
+
+        $('#commentModal').modal('show');
+
+        $('#btnEdit').css('display', 'inline');
+        $('#btnSave').css('display', 'none');
+
+        $("#comment").val(d[0]);
+        $("#commentDate").val(d[1]);
+        $("#hiddenValue").val(myIndex);
+    };
+
+    function cleanModalForm() {
+        $('#btnEdit').css('display', 'none');
+        $('#btnSave').css('display', 'inline');
+        $("#comment").val("");
+        $("#commentDate").val("");
+
+        $("#modalForm div input[type='text']").each(function () {
+            $(this).parent("div").removeClass("has-error");
+        })
+    }
+
+    function validateMyForm() {
+
+        var gotError = 0;
+        $("#modalForm div input").each(function () {
+            if ($.trim(this.value) == "") {
+                $(this).parent("div").addClass("has-error");
+                if (gotError == 0)
+                    gotError = 1;
+            } else {
+                $(this).parent("div").removeClass("has-error");
+            }
+        })
+
+        $("#modalForm div textarea").each(function () {
+            if ($.trim(this.value) == "") {
+                $(this).parent("div").addClass("has-error");
+                if (gotError == 0)
+                    gotError = 1;
+            } else {
+                $(this).parent("div").removeClass("has-error");
+            }
+        })
+
+        return gotError;
+    }
+
+    function addMyInfo() { //Como limpiamos este codigo?
+        var gotError = validateMyForm();
+        if (gotError == 0) {
+            //We add the row to the dataTable
+            $("#dtComment").DataTable().row.add([
+                $("#comment").val(),
+                $("#commentDate").val(),
+                "<span class='glyphicon glyphicon-remove-sign'></span> <span> | </span> " +
+                "<span class='glyphicon glyphicon-ok-sign' onclick='editMyRow(this)'></span>"
+            ]).draw();
+
+            //We clean all input fields
+            $("#modalForm div input[type='text']").val("");
+
+
+            //Both are need to hide the mode successfully
+            $("#btnCancel").click();
+        }
+    }
+
+    function doMyPost() {
+        var json = '[ ' ;
+        $($("#dtComment").DataTable().rows().data()).each(function (index, row) {
+            json += '{ "Description":"' + row[0] + '" , "Date":"' + row[1] + '" },';
+        })
+        json += ' ]';
+        $("#hiddenArray").val(json);
+        console.log($("#hiddenArray").val());
+    }
+
+</script>

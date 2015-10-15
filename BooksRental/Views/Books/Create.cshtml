@@ -14,8 +14,13 @@
             readURL(this);
         });
         
-        $('#dtComment').DataTable({
-            responsive: true
+        $table = $('#dtComment').DataTable({
+            responsive: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+            "bSort": false
+
         });
     });
     
@@ -79,6 +84,9 @@
             </div>
         </div>
 
+
+        <input type="text" style="display:none" id="hiddenArray" name="hiddenArray"/>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" id="submit" value="Create" class="btn btn-default" />
@@ -92,7 +100,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Book's Comments |
-                <span class="glyphicon glyphicon-plus-sign" id="addNewRow" data-toggle="modal" data-target="#exampleModal" />
+                <span class="glyphicon glyphicon-plus-sign" id="addNewRow" data-toggle="modal" data-target="#commentModal" />
 
             </div>
             <!-- /.panel-heading -->
@@ -103,6 +111,7 @@
                             <tr>
                                 <th>Comment</th>
                                 <th>Date</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>

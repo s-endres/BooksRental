@@ -10,12 +10,16 @@ using BooksRental.Models;
 using BooksRental.Repositories;
 using System.IO;
 using BooksRental.Extensions;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace BooksRental.Controllers
 {
     public class BooksController : Controller
     {
         private BookRepository repository = new BookRepository();
+        private CommentRepository comRepository = new CommentRepository();
 
         // GET: Books
         public ActionResult Index()
@@ -52,22 +56,41 @@ namespace BooksRental.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize()]
-        public ActionResult Create([Bind(Include = "BookId,Name,Description,BookGenderId")] Book book, HttpPostedFileBase ImageFile)
+        public ActionResult Create([Bind(Include = "BookId,Name,Description,BookGenderId")] Book book, HttpPostedFileBase ImageFile, string hiddenArray)
         {
             if (ModelState.IsValid)
             {
+                var items = JsonConvert.DeserializeObject<List<Comment>>(hiddenArray);
+
                 if (ImageFile != null)
                 {
                     book.ImageUrl = Utils.Instance.moveMyImage(ImageFile, User.Identity.Name);
                 }
                 repository.Add(book);
+                
                 repository.SaveChanges();
+                var bookId = book.BookId;
+
+                foreach (Comment com in items)
+                {
+                    com.BookId = bookId;
+                    comRepository.Add(com);
+                }
+
+                comRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name", book.BookGenderId);
             return View(book);
         }
+
+        [HttpPost]
+        public void BOOM()
+        {
+            var a = "";
+        }
+
 
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)

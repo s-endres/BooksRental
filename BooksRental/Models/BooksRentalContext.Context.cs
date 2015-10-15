@@ -31,5 +31,6 @@ namespace BooksRental.Models
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
     }
 }

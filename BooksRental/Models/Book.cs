@@ -19,6 +19,7 @@ namespace BooksRental.Models
         {
             this.ShoppingCarts = new HashSet<ShoppingCart>();
             this.Comments = new HashSet<Comment>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int BookId { get; set; }
@@ -32,5 +33,7 @@ namespace BooksRental.Models
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

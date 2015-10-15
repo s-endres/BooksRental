@@ -175,6 +175,9 @@
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ShoppingCart.cs">
       <DependentUpon>BooksRentalContext.tt</DependentUpon>
     </Compile>
@@ -182,6 +185,7 @@
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\BookGenderRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
+    <Compile Include="Repositories\CommentRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>

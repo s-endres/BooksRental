@@ -16,6 +16,8 @@
         <AssociationConnector Association="BookRentalModel.FK_ShoppingCarts_Books" />
         <EntityTypeShape EntityType="BookRentalModel.Comment" Width="1.5" PointX="5.25" PointY="5.125" />
         <AssociationConnector Association="BookRentalModel.FK_Comments_Comments" />
+        <EntityTypeShape EntityType="BookRentalModel.Review" Width="1.5" PointX="7.75" PointY="2.25" />
+        <AssociationConnector Association="BookRentalModel.FK_Reviews_Books" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
