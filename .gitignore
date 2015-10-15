@@ -1,5 +1,4 @@
-*.suo
 BooksRental/bin/*
 BooksRental/obj/*
+*.suo
 BooksRental/Documents/BooksImages/*
-packages/*
