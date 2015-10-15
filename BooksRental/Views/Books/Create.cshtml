@@ -43,87 +43,92 @@
     }
 </script>
 
-@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Book</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Image</label>
-            <div class="col-md-10">
-                <input type="file" class="btn btn-default form-control" name="ImageFile" id="ImageFile" />
-                <label id="fileError" class="text-danger" style="display:none;"></label>
-                <div id="imagesPreview"></div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookGenderId, "BookGenderId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BookGenderId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BookGenderId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <input type="text" style="display:none" id="hiddenArray" name="hiddenArray"/>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
 <div class="row" style="padding:15px">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Book's Comments |
-                <span class="glyphicon glyphicon-plus-sign" id="addNewRow" data-toggle="modal" data-target="#commentModal" />
 
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="dataTable_wrapper">
-                    <table class="table table-striped table-bordered table-hover" id="dtComment">
-                        <thead>
-                            <tr>
-                                <th>Comment</th>
-                                <th>Date</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+    <div class="col-lg-6">
+        @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Book</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Image</label>
+                    <div class="col-md-10">
+                        <input type="file" class="btn btn-default form-control" name="ImageFile" id="ImageFile" />
+                        <label id="fileError" class="text-danger" style="display:none;"></label>
+                        <div id="imagesPreview"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookGenderId, "BookGenderId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("BookGenderId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookGenderId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <input type="text" style="display:none" id="hiddenArray" name="hiddenArray" />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" id="submit" value="Create" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
+        }
     </div>
-    <!-- /.col-lg-12 -->
-</div>
+
+        <div class="col-lg-6">
+            <h4>Comments</h4>
+            <hr />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Book's Comments |
+                    <span class="glyphicon glyphicon-plus-sign" id="addNewRow" data-toggle="modal" data-target="#commentModal" />
+
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dtComment">
+                            <thead>
+                                <tr>
+                                    <th>Comment</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
 
 @Html.Partial("partialHTML/commentModal")
 
