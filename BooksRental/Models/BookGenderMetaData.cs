@@ -9,6 +9,7 @@ namespace BooksRental.Models
     public class BookGenderMetaData
     {
         public int BookGenderId { get; set; }
+        [Display(Name="Gender")]
         [StringLength(50, MinimumLength = 10, ErrorMessage = "The length must be 50 max D:!")]
         public string Name { get; set; }
 

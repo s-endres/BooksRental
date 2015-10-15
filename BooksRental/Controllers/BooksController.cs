@@ -19,7 +19,6 @@ namespace BooksRental.Controllers
     public class BooksController : Controller
     {
         private BookRepository repository = new BookRepository();
-        private CommentRepository comRepository = new CommentRepository();
 
         // GET: Books
         public ActionResult Index()
@@ -66,18 +65,15 @@ namespace BooksRental.Controllers
                 {
                     book.ImageUrl = Utils.Instance.moveMyImage(ImageFile, User.Identity.Name);
                 }
-                repository.Add(book);
-                
-                repository.SaveChanges();
-                var bookId = book.BookId;
 
                 foreach (Comment com in items)
                 {
-                    com.BookId = bookId;
-                    comRepository.Add(com);
+                    book.Comments.Add(com);
                 }
-                if (items.Count > 0 )
-                    comRepository.SaveChanges();
+
+                repository.Add(book);
+                repository.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
