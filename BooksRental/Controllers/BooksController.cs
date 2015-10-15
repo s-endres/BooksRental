@@ -76,8 +76,8 @@ namespace BooksRental.Controllers
                     com.BookId = bookId;
                     comRepository.Add(com);
                 }
-
-                comRepository.SaveChanges();
+                if (items.Count > 0 )
+                    comRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -146,6 +146,15 @@ namespace BooksRental.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Book book = repository.Get(id);
+
+            string image = book.ImageUrl;
+
+            if (!string.IsNullOrEmpty(image))
+            {
+                image = Path.Combine(Server.MapPath("~/Documents/BooksImages/"), image);
+                System.IO.File.Delete(image);
+            }
+
             repository.Remove(book);
             repository.SaveChanges();
             return RedirectToAction("Index");
