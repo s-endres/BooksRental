@@ -61,8 +61,8 @@
         var objBook = $.grep($myArray, function (e) {
             return e.IdBook == id;
         });
-
-        var sOut = '<table class="table" style="padding-left:50px; border-style: dotted; border-width: 1px;">' +
+        var sOut = "<h3>Book's Comments</h3>";
+        sOut += '<table class="table" style="padding-left:50px; border-style: dotted; border-width: 1px;">' +
                     '<tr style="font-weight:bold; text-align:center;">' +
                         '<td style="border-style: dotted; border-width: 1px;">Description</td>' +
                         '<td style="border-style: dotted; border-width: 1px;">Date</td>' +
@@ -107,7 +107,7 @@
         @foreach (var item in Model)
         {
             <tr id="@item.BookId">
-                <td id="img@(item.BookId)" onclick="openChild(@item.BookId, this)">
+                <td id="img@(item.BookId)" onclick="openChild(@item.BookId, this)" class="showChildCell">
                     <img src="~/Images/DataTable/details_open.png">
                 </td>
                 <td>

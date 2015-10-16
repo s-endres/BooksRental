@@ -26,3 +26,6 @@ textarea {
 .glyphicon {
     cursor:pointer;
 }
+.showChildCell{
+    cursor:pointer;
+}
