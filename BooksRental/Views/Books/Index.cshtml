@@ -8,7 +8,14 @@
 <script>
     $(document).ready(function () {
         $('#booksTable').DataTable({
-            responsive: true
+            responsive: true,
+            "aaSorting": [],
+            "columnDefs": [
+                        {
+                            "bSortable": false,
+                            "aTargets": [0,5]
+                        }
+            ]
         })
         setMyCommentArray()
     });
@@ -32,7 +39,6 @@
             }
             @:$myArray.push(objBook);
         }
-        console.log($myArray);
     }
 
     function openChild(idBug, tdObj) {
