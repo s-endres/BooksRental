@@ -107,8 +107,8 @@
         @foreach (var item in Model)
         {
             <tr id="@item.BookId">
-                <td id="img@(item.BookId)" onclick="openChild(@item.BookId, this)" class="showChildCell">
-                    <img src="~/Images/DataTable/details_open.png">
+                <td id="img@(item.BookId)" onclick="openChild(@item.BookId, this)">
+                    <img src="~/Images/DataTable/details_open.png" class="showChildCell">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
