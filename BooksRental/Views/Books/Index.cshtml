@@ -5,47 +5,123 @@
 }
 
 <h2>Index</h2>
+<script>
+    $(document).ready(function () {
+        $('#booksTable').DataTable({
+            responsive: true
+        })
+        setMyCommentArray()
+    });
+
+    function setMyCommentArray() {
+        $myArray = [];
+        @foreach (var d in @Model)
+        {
+            @:var objBook = {};
+            @:objBook.IdBook = "@d.BookId";
+            @:objBook.Comments = [];
+
+            foreach (var a in d.Comments)
+            {
+                @:var objComment = {};
+                @:objComment.IdComment = "@a.CommentId";
+                @:objComment.Description = "@a.Description";
+                @:objComment.Date = "@a.Date";
+
+                @:objBook.Comments.push(objComment);
+            }
+            @:$myArray.push(objBook);
+        }
+        console.log($myArray);
+    }
+
+    function openChild(idBug, tdObj) {
+        var nTr = $("#" + idBug);
+        var img = $(tdObj).find('img');
+        if ($('#booksTable').dataTable().fnIsOpen(nTr)) {
+            /* This row is already open - close it */
+            img.attr("src", "/Images/DataTable/details_open.png");
+            $('#booksTable').dataTable().fnClose(nTr);
+        }
+        else {
+            /* Open this row */
+            img.attr("src", "/Images/DataTable/details_close.png");
+            $('#booksTable').dataTable().fnOpen(nTr, fnFormatDetails(idBug));
+        }
+    }
+
+    /* Formating function for row details */
+    function fnFormatDetails(id) {
+        var objBook = $.grep($myArray, function (e) {
+            return e.IdBook == id;
+        });
+
+        var sOut = '<table class="table" style="padding-left:50px; border-style: dotted; border-width: 1px;">' +
+                    '<tr style="font-weight:bold; text-align:center;">' +
+                        '<td style="border-style: dotted; border-width: 1px;">Description</td>' +
+                        '<td style="border-style: dotted; border-width: 1px;">Date</td>' +
+                    '</tr>';
+        $.each(objBook[0].Comments, function (i, obj) {
+            sOut += '<tr>' +
+                        '<td style="border-style: dotted; border-width: 1px;">' + obj.Description + '</td>' +
+                        '<td style="border-style: dotted; border-width: 1px;">' + obj.Date + '</td>' +
+                    '</tr>';
+        })
+
+        sOut += '</table>';
+        return sOut;
+    }
+</script>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookGender.Name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            <img src="~/Documents/BooksImages/@item.ImageUrl" alt="Smiley face" height="80" width="80">
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookGender.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookId })
-        </td>
-    </tr>
-}
-
-</table>
+<table id="booksTable" class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookGender.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.BookId">
+                <td id="img@(item.BookId)" onclick="openChild(@item.BookId, this)">
+                    <img src="~/Images/DataTable/details_open.png">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <img src="~/Documents/BooksImages/@item.ImageUrl" alt="Smiley face" height="80" width="80">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookGender.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BookId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
+                </td>
+            </tr>
+        }
+        </tbody>
+        </table>

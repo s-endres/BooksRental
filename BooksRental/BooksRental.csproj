@@ -196,6 +196,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\DataTable\details_close.png" />
+    <Content Include="Images\DataTable\details_open.png" />
+    <Content Include="Images\DataTable\sort_asc.png" />
+    <Content Include="Images\DataTable\sort_asc_disabled.png" />
+    <Content Include="Images\DataTable\sort_both.png" />
+    <Content Include="Images\DataTable\sort_desc.png" />
+    <Content Include="Images\DataTable\sort_desc_disabled.png" />
     <Content Include="Models\BooksRentalContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BooksRentalContext.edmx</DependentUpon>
