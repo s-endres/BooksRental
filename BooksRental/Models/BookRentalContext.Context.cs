@@ -29,8 +29,8 @@ namespace BooksRental.Models
         public virtual DbSet<AccountType> AccountTypes { get; set; }
         public virtual DbSet<BookGender> BookGenders { get; set; }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

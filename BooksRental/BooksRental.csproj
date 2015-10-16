@@ -136,52 +136,54 @@
     <Compile Include="Controllers\BookGendersController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Extensions\Utils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountMetaData.cs" />
     <Compile Include="Models\AccountType.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountTypeMetaData.cs" />
     <Compile Include="Models\Book.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookGender.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookGenderMetaData.cs" />
     <Compile Include="Models\BookMetaData.cs" />
-    <Compile Include="Models\BooksRentalContext.Context.cs">
+    <Compile Include="Models\BookRentalContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksRentalContext.Context.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BooksRentalContext.cs">
+    <Compile Include="Models\BookRentalContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BooksRentalContext.Designer.cs">
+    <Compile Include="Models\BookRentalContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksRentalContext.edmx</DependentUpon>
+      <DependentUpon>BookRentalContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\Review.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShoppingCart.cs">
-      <DependentUpon>BooksRentalContext.tt</DependentUpon>
+      <DependentUpon>BookRentalContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ShoppingCartRepository.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\BookGenderRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
@@ -203,24 +205,24 @@
     <Content Include="Images\DataTable\sort_both.png" />
     <Content Include="Images\DataTable\sort_desc.png" />
     <Content Include="Images\DataTable\sort_desc_disabled.png" />
-    <Content Include="Models\BooksRentalContext.Context.tt">
+    <Content Include="Models\BookRentalContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BooksRentalContext.edmx</DependentUpon>
-      <LastGenOutput>BooksRentalContext.Context.cs</LastGenOutput>
+      <DependentUpon>BookRentalContext.edmx</DependentUpon>
+      <LastGenOutput>BookRentalContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BooksRentalContext.tt">
+    <Content Include="Models\BookRentalContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BooksRentalContext.edmx</DependentUpon>
-      <LastGenOutput>BooksRentalContext.cs</LastGenOutput>
+      <DependentUpon>BookRentalContext.edmx</DependentUpon>
+      <LastGenOutput>BookRentalContext.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\BooksRentalContext.edmx">
+    <EntityDeploy Include="Models\BookRentalContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BooksRentalContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>BookRentalContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\BooksRentalContext.edmx.diagram">
-      <DependentUpon>BooksRentalContext.edmx</DependentUpon>
+    <Content Include="Models\BookRentalContext.edmx.diagram">
+      <DependentUpon>BookRentalContext.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -273,6 +275,7 @@
     <Folder Include="Content\Plugins\datatables-plugins\" />
     <Folder Include="Content\Plugins\datatables-responsive\" />
     <Folder Include="Content\Plugins\datatables\" />
+    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

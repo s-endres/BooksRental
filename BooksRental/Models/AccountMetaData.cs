@@ -28,6 +28,6 @@ namespace BooksRental.Models
         public int AccountTypeId { get; set; }
 
         public virtual AccountType AccountType { get; set; }
-        public virtual ShoppingCart ShoppingCart { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="AccountId" />
@@ -59,14 +59,17 @@
         </EntityType>
         <EntityType Name="ShoppingCarts">
           <Key>
-            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="ShoppingCartId" />
           </Key>
+          <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccountId" Type="int" Nullable="false" />
           <Property Name="RentedDate" Type="datetime" Nullable="false" />
           <Property Name="BookId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comments_Comments">
-          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Books">
@@ -105,7 +108,7 @@
         </Association>
         <Association Name="FK_dbo_ShoppingCarts_dbo_Accounts_AccountId">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
-          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
               <PropertyRef Name="AccountId" />
@@ -172,7 +175,8 @@
             <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -186,7 +190,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AccountTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccountType" Relationship="Self.FK_dbo_Accounts_dbo_AccountTypes_AccountTypeId" FromRole="Accounts" ToRole="AccountTypes" />
-          <NavigationProperty Name="ShoppingCart" Relationship="Self.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" FromRole="Accounts" ToRole="ShoppingCarts" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" FromRole="Accounts" ToRole="ShoppingCarts" />
         </EntityType>
         <EntityType Name="AccountType">
           <Key>
@@ -214,19 +218,40 @@
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BookGenderId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BookGender" Relationship="Self.FK_dbo_Books_dbo_BookGenders_BookGenderId" FromRole="Books" ToRole="BookGenders" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="BookRentalModel.FK_ShoppingCarts_Books" FromRole="Book" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Comments" Relationship="BookRentalModel.FK_Comments_Comments" FromRole="Book" ToRole="Comment" />
-          <NavigationProperty Name="Reviews" Relationship="BookRentalModel.FK_Reviews_Books" FromRole="Book" ToRole="Review" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Comments" FromRole="Books" ToRole="Comments" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Books" FromRole="Books" ToRole="Reviews" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCarts_Books" FromRole="Books" ToRole="ShoppingCarts" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Comments_Comments" FromRole="Comments" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Reviews_Books" FromRole="Reviews" ToRole="Books" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
-            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="ShoppingCartId" />
           </Key>
+          <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccountId" Type="Int32" Nullable="false" />
           <Property Name="RentedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="BookId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_dbo_ShoppingCarts_dbo_Accounts_AccountId" FromRole="ShoppingCarts" ToRole="Accounts" />
-          <NavigationProperty Name="Book" Relationship="BookRentalModel.FK_ShoppingCarts_Books" FromRole="ShoppingCart" ToRole="Book" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_ShoppingCarts_Books" FromRole="ShoppingCarts" ToRole="Books" />
         </EntityType>
         <Association Name="FK_dbo_Accounts_dbo_AccountTypes_AccountTypeId">
           <End Role="AccountTypes" Type="Self.AccountType" Multiplicity="1">
@@ -244,7 +269,7 @@
         </Association>
         <Association Name="FK_dbo_ShoppingCarts_dbo_Accounts_AccountId">
           <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
-          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
               <PropertyRef Name="AccountId" />
@@ -266,11 +291,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comments_Comments">
+          <End Role="Books" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Books">
+          <End Role="Books" Type="Self.Book" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Books">
+          <End Role="Books" Type="Self.Book" Multiplicity="1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BookRentalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
           <EntitySet Name="BookGenders" EntityType="Self.BookGender" />
           <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
           <AssociationSet Name="FK_dbo_Accounts_dbo_AccountTypes_AccountTypeId" Association="Self.FK_dbo_Accounts_dbo_AccountTypes_AccountTypeId">
             <End Role="AccountTypes" EntitySet="AccountTypes" />
@@ -284,77 +349,19 @@
             <End Role="BookGenders" EntitySet="BookGenders" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCarts_Books" Association="BookRentalModel.FK_ShoppingCarts_Books">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          <AssociationSet Name="FK_Comments_Comments" Association="Self.FK_Comments_Comments">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <EntitySet Name="Comments" EntityType="BookRentalModel.Comment" />
-          <AssociationSet Name="FK_Comments_Comments" Association="BookRentalModel.FK_Comments_Comments">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="Comment" EntitySet="Comments" />
+          <AssociationSet Name="FK_Reviews_Books" Association="Self.FK_Reviews_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
-          <EntitySet Name="Reviews" EntityType="BookRentalModel.Review" />
-          <AssociationSet Name="FK_Reviews_Books" Association="BookRentalModel.FK_Reviews_Books">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="Review" EntitySet="Reviews" />
+          <AssociationSet Name="FK_ShoppingCarts_Books" Association="Self.FK_ShoppingCarts_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_ShoppingCarts_Books">
-          <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="BookRentalModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="CommentId" />
-          </Key>
-          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="BookRentalModel.FK_Comments_Comments" FromRole="Comment" ToRole="Book" />
-        </EntityType>
-        <Association Name="FK_Comments_Comments">
-          <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="BookRentalModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Review">
-          <Key>
-            <PropertyRef Name="ReviewId" />
-          </Key>
-          <Property Name="ReviewId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="BookRentalModel.FK_Reviews_Books" FromRole="Review" ToRole="Book" />
-        </EntityType>
-        <Association Name="FK_Reviews_Books">
-          <End Type="BookRentalModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="BookRentalModel.Review" Role="Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="Review">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -399,32 +406,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ShoppingCarts">
-            <EntityTypeMapping TypeName="BookRentalModel.ShoppingCart">
-              <MappingFragment StoreEntitySet="ShoppingCarts">
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="RentedDate" ColumnName="RentedDate" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="BookRentalModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="BookRentalModel.Review">
               <MappingFragment StoreEntitySet="Reviews">
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="BookRentalModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCarts">
+                <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="RentedDate" ColumnName="RentedDate" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

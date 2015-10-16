@@ -14,6 +14,7 @@ namespace BooksRental.Models
     
     public partial class ShoppingCart
     {
+        public int ShoppingCartId { get; set; }
         public int AccountId { get; set; }
         public System.DateTime RentedDate { get; set; }
         public int BookId { get; set; }

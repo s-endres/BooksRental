@@ -14,6 +14,12 @@ namespace BooksRental.Models
     
     public partial class Account
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Account()
+        {
+            this.ShoppingCarts = new HashSet<ShoppingCart>();
+        }
+    
         public int AccountId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -21,6 +27,7 @@ namespace BooksRental.Models
         public int AccountTypeId { get; set; }
     
         public virtual AccountType AccountType { get; set; }
-        public virtual ShoppingCart ShoppingCart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }
