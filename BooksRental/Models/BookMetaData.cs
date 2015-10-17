@@ -18,6 +18,7 @@ namespace BooksRental.Models
         public string Description { get; set; }
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
+        [Display(Name = "Gender")]
         public int BookGenderId { get; set; }
 
         public virtual BookGender BookGender { get; set; }

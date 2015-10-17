@@ -15,7 +15,8 @@ namespace BooksRental.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
-            return View();
+            var cartBook = repository.GetAll();
+            return View(cartBook);
         }
         public ActionResult addBookToCart(int? id)
         {
@@ -30,6 +31,13 @@ namespace BooksRental.Controllers
 
             }
             return RedirectToAction("Index", "Books");
+        }
+        public ActionResult removeBookFromCart(int id)
+        {
+            ShoppingCart objSC = repository.Get(id);
+            repository.Remove(objSC);
+            repository.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

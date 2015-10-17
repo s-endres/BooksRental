@@ -21,6 +21,7 @@ namespace BooksRental.Controllers
         private BookRepository repository = new BookRepository();
 
         // GET: Books
+        [Authorize()]
         public ActionResult Index()
         {
             var books = repository.GetAll();

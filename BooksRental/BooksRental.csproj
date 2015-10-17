@@ -269,13 +269,13 @@
     <Content Include="Views\BookGenders\Edit.cshtml" />
     <Content Include="Views\BookGenders\Index.cshtml" />
     <Content Include="Views\Books\partialHTML\commentModal.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Plugins\datatables-plugins\" />
     <Folder Include="Content\Plugins\datatables-responsive\" />
     <Folder Include="Content\Plugins\datatables\" />
-    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BooksRental.Models.ShoppingCart>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <label>Rented Date</label>
+        </th>
+        <th>
+            <label>
+                Image
+            </label>
+        </th>
+        <th>
+            <label>
+                Book Title
+            </label>
+        </th>
+        <th>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentedDate)
+        </td>
+        <td>
+            <img src="~/Documents/BooksImages/@item.Book.ImageUrl" alt="Smiley face" height="80" width="80">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Remove", "removeBookFromCart", new { id = item.ShoppingCartId })
+        </td>
+    </tr>
+}
+
+</table>
