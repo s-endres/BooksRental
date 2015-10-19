@@ -17,6 +17,13 @@ namespace BookRental.Repositories
             context = new BookRentalEntities();
             DbSet = context.Set<T>();
         }
+        public Repository(string pConnectionString)
+        {
+            //"Data Source=SFECLT\\SQLEXPRESS;Initial Catalog=SecondBookRental;Integrated Security=True"
+            context = new BookRentalEntities();
+            DbSet = context.Set<T>();
+            context.Database.Connection.ConnectionString = pConnectionString;
+        }
 
         public List<T> GetAll()
         {

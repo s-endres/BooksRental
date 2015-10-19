@@ -10,6 +10,7 @@ using BooksRental.Models;
 using BooksRental.Repositories;
 using System.Web.Security;
 using BooksRental.Extensions;
+using BooksRental.POCOs;
 
 namespace BooksRental.Controllers
 {

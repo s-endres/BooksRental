@@ -29,3 +29,61 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Select a Data Base</h4>
+            </div>
+            <div class="modal-body text-center">
+                <select id="selectDBConnection" class="form-control">
+                    <option value="BookRental">First DB</option>
+                    <option value="SecondBookRental">Second DB</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConnect" class="btn btn-primary">Connect</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#connectionModal").modal("show");
+
+        $("#btnConnect").on("click", function () {
+            var result = setMyConnection()
+            if (result) {
+                $('#connectionModal').modal('hide');
+                $('body').removeClass('modal-open');
+            }
+        })
+    });
+
+    function setMyConnection() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("setConnection", "Connection")",
+            data: JSON.stringify({
+                DataBaseName: $("#selectDBConnection").val()
+            }),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('Got it!');
+
+                var url = '@Url.Action("Index", "BookGenders")';
+                window.location = url;
+
+                return true;
+            },
+            error: function () {
+                alert('ERRORRRR ! ! ! ! !  D:!');
+                return false;
+            }
+        });
+    }
+</script>

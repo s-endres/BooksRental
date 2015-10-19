@@ -9,5 +9,9 @@ namespace BooksRental.Repositories
 {
     public class BookGenderRepository : Repository<BookGender>
     {
+        public BookGenderRepository(string pConnectionString) :  base(pConnectionString)
+        {
+            //Boom
+        }
     }
 }

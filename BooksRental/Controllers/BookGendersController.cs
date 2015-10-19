@@ -8,12 +8,13 @@ using System.Web;
 using System.Web.Mvc;
 using BooksRental.Models;
 using BooksRental.Repositories;
+using BooksRental.POCOs;
 
 namespace BooksRental.Controllers
 {
     public class BookGendersController : Controller
     {
-        private BookGenderRepository repository = new BookGenderRepository();
+        private BookGenderRepository repository = new BookGenderRepository(GlobalVariables.ConnectionString);
 
         // GET: BookGenders
         public ActionResult Index()
