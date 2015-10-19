@@ -10,6 +10,10 @@ namespace BooksRental.Repositories
     public class AccountRepository : Repository<Account>
     {
 
+        public AccountRepository(string pConnectionString) :  base(pConnectionString)
+        {
+            //Boom
+        }
         public List<Account> GetByEmail(String pEmail)
         {
             return DbSet.Where(a => a.Email.Equals(pEmail)).ToList();

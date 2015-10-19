@@ -13,12 +13,13 @@ using BooksRental.Extensions;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using BooksRental.POCOs;
 
 namespace BooksRental.Controllers
 {
     public class BooksController : Controller
     {
-        private BookRepository repository = new BookRepository();
+        private BookRepository repository = new BookRepository(GlobalVariables.ConnectionString);
 
         // GET: Books
         [Authorize()]
@@ -80,12 +81,6 @@ namespace BooksRental.Controllers
 
             ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name", book.BookGenderId);
             return View(book);
-        }
-
-        [HttpPost]
-        public void BOOM()
-        {
-            var a = "";
         }
 
 

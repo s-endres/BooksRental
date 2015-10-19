@@ -9,6 +9,10 @@ namespace BooksRental.Repositories
 {
     public class BookRepository : Repository<Book>
     {
+        public BookRepository(string pConnectionString) :  base(pConnectionString)
+        {
+            //Boom
+        }
         public List<BookGender> getAllBookGenders()
         {
             return context.BookGenders.OrderBy(a => a.Name).ToList();

@@ -9,5 +9,9 @@ namespace BooksRental.Repositories
 {
     public class CommentRepository :  Repository<Comment>
     {
+        public CommentRepository(string pConnectionString) :  base(pConnectionString)
+        {
+            //Boom
+        }
     }
 }

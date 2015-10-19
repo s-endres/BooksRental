@@ -9,6 +9,10 @@ namespace BooksRental.Repositories
 {
     public class ShoppingCartRepository : Repository<ShoppingCart>
     {
-        
+
+        public ShoppingCartRepository(string pConnectionString) :  base(pConnectionString)
+        {
+            //Boom
+        }
     }
 }

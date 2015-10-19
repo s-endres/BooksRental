@@ -1,4 +1,5 @@
 ﻿using BooksRental.Models;
+using BooksRental.POCOs;
 using BooksRental.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace BooksRental.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private ShoppingCartRepository repository = new ShoppingCartRepository();
+        private ShoppingCartRepository repository = new ShoppingCartRepository(GlobalVariables.ConnectionString);
 
         // GET: ShoppingCart
         public ActionResult Index()

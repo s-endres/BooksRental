@@ -16,7 +16,7 @@ namespace BooksRental.Controllers
 {
     public class AccountsController : Controller
     {
-        private AccountRepository repository = new AccountRepository();
+        private AccountRepository repository = new AccountRepository(GlobalVariables.ConnectionString);
 
         /// <summary>
         /// GET: Accounts
@@ -130,7 +130,7 @@ namespace BooksRental.Controllers
                 List<Account> accounts = repository.GetByEmail(account.Email);
                 if (accounts.Count == 0 || account.AccountId == accounts[0].AccountId)
                 {
-                    repository = new AccountRepository();
+                    repository = new AccountRepository(GlobalVariables.ConnectionString);
                     repository.Edit(account);
                     repository.SaveChanges();
                     return RedirectToAction("Index");
@@ -214,7 +214,7 @@ namespace BooksRental.Controllers
                                                    FormsAuthentication.Encrypt(authTicket));
                 Response.Cookies.Add(cookie);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Books");
             }
             else
             {
@@ -291,7 +291,6 @@ namespace BooksRental.Controllers
         /// <returns>Valid State</returns>
         protected Account isValid(string pEmail, string pPassword)
         {
-            bool result = false;
             List<Account> accounts = repository.GetByEmail(pEmail);
             if (accounts.Count > 0)
             {

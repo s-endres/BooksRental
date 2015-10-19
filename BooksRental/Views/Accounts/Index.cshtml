@@ -23,9 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.AccountType.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShoppingCart.AccountId)
-        </th>
         <th></th>
     </tr>
 
@@ -42,9 +39,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AccountType.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShoppingCart.AccountId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AccountId }) |
