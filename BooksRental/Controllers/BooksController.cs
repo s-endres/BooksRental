@@ -25,6 +25,7 @@ namespace BooksRental.Controllers
         [Authorize()]
         public ActionResult Index()
         {
+            ViewBag.Success = TempData["Success"];
             var books = repository.GetAll();
             return View(books);
         }

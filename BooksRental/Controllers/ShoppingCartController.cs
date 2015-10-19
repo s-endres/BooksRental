@@ -31,6 +31,8 @@ namespace BooksRental.Controllers
                 repository.SaveChanges();
 
             }
+
+            TempData["Success"] = "The book has been rented";
             return RedirectToAction("Index", "Books");
         }
         public ActionResult removeBookFromCart(int id)

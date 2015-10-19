@@ -43,6 +43,10 @@
         {
             <div class="alert alert-danger" style="margin-top:10px;" role="alert">@ViewBag.Error</div>
         }
+        @if (!string.IsNullOrEmpty(ViewBag.Success))
+            {
+            <div class="alert alert-success" style="margin-top:10px;" role="alert">@ViewBag.Success</div>
+        }
         @RenderBody()
         <hr />
         <footer>
