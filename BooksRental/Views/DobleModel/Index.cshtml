@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Doble Model Ex";
+}
+
+
+<div class="row">
+    <!-- Account Type Table -->
+    <div class="col-md-6">
+        <h2>
+            Account Types
+        </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Account Type Id</th>
+                    <th>Name of AT</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["AccountTypes"] as IEnumerable<BooksRental.Models.AccountType>)
+                {
+                <tr>
+                    <td>@item.AccountTypeId</td>
+                    <td>@item.Name</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Book Genders Table -->
+    <div class="col-md-6">
+        <h2>
+            Book Genders
+        </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Book Gender Id</th>
+                    <th>Name of BG</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["BookGenders"] as IEnumerable<BooksRental.Models.BookGender>)
+                {
+                    <tr>
+                        <td>@item.BookGenderId</td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

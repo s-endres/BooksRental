@@ -136,6 +136,7 @@
     <Compile Include="Controllers\BookGendersController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\ConnectionController.cs" />
+    <Compile Include="Controllers\DobleModelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Extensions\Utils.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Views\BookGenders\Index.cshtml" />
     <Content Include="Views\Books\partialHTML\commentModal.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\DobleModel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

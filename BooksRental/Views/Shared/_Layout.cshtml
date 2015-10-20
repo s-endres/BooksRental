@@ -33,6 +33,15 @@
                     <li>@Html.ActionLink("Books Management", "Index", "Books")</li>
                     <li>@Html.ActionLink("Books Genders Management", "Index", "BookGenders")</li>
                     <li>@Html.ActionLink("Shopping Cart", "Index", "ShoppingCart")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                            Multiple Model Examples <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Doble Model Ex", "Index", "DobleModel")</li>
+                            <li><a href="javascript:;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Example #2</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
