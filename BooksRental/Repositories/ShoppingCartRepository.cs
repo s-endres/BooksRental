@@ -14,5 +14,10 @@ namespace BooksRental.Repositories
         {
             //Boom
         }
+
+        public List<ShoppingCart> getAllByAccountId (int pAccountId)
+        {
+            return DbSet.Where(s => s.AccountId == pAccountId).OrderBy(s => s.RentedDate).ToList();
+        }
     }
 }

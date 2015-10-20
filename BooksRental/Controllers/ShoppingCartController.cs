@@ -14,9 +14,10 @@ namespace BooksRental.Controllers
         private ShoppingCartRepository repository = new ShoppingCartRepository(GlobalVariables.ConnectionString);
 
         // GET: ShoppingCart
+        [Authorize()]
         public ActionResult Index()
         {
-            var cartBook = repository.GetAll();
+            var cartBook = repository.getAllByAccountId(int.Parse(User.Identity.Name));
             return View(cartBook);
         }
         public ActionResult addBookToCart(int? id)
