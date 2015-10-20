@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Model Ajax Ex";
+}
+
+<script>
+    $(document).ready(function () {
+        //Account Type Data Table
+        $tableAT = $('#dtAccountType').DataTable({
+            responsive: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bSort": false
+        });
+
+        //Book Gender Data Table
+        $tableBG = $('#dtBookGender').DataTable({
+            responsive: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bSort": false
+        });
+
+        getMyATData();
+        getMyBGData();
+    });
+
+    function getMyATData() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("getMyAccountTypes", "DobleModel")",
+            data: JSON.stringify({
+            }),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $.each(data, function (i, obj) {
+                    $tableAT.row.add([
+                    obj.AccountTypeId,
+                    obj.Name]).draw();
+                })
+
+            },
+            error: function () {
+                alert('ERRORRRR ! ! ! ! !  D:!');
+            }
+        });
+    }
+
+    function getMyBGData() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("getMyBookGenders", "DobleModel")",
+            data: JSON.stringify({
+            }),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            $.each(data, function (i, obj) {
+                $tableBG.row.add([
+                obj.BookGenderId,
+                obj.Name]).draw();
+            })
+
+        },
+        error: function () {
+            alert('ERRORRRR ! ! ! ! !  D:!');
+        }
+    });
+    }
+</script>
+
+<div class="row">
+    <!-- Account Type Table -->
+    <div class="col-md-6">
+        <h2>
+            Account Types
+        </h2>
+        <table id="dtAccountType" class="table">
+            <thead>
+                <tr>
+                    <th>Account Type Id</th>
+                    <th>Name of AT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Book Genders Table -->
+    <div class="col-md-6">
+        <h2>
+            Book Genders
+        </h2>
+        <table id="dtBookGender" class="table">
+            <thead>
+                <tr>
+                    <th>Book Gender Id</th>
+                    <th>Name of BG</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
