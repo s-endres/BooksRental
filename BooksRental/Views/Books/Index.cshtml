@@ -80,7 +80,10 @@
 </script>
 
 <p>
+@if (User.IsInRole("Admin"))
+{
     @Html.ActionLink("Create New", "Create")
+}
 </p>
 
 <table id="booksTable" class="table">
@@ -123,9 +126,12 @@
                     @Html.DisplayFor(modelItem => item.BookGender.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BookId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BookId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BookId }) |
+                    @if (User.IsInRole("Admin"))
+                    {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookId })<span> | </span>
+                    @Html.ActionLink("Details", "Details", new { id = item.BookId })<span> | </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BookId })<span> | </span>
+                    }
                     @Html.ActionLink("Rent Book", "addBookToCart", new { controller = "ShoppingCart", id = item.BookId })
                 </td>
             </tr>
