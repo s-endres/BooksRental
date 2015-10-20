@@ -3,6 +3,24 @@
     ViewBag.Title = "Doble Model Ex";
 }
 
+<script>
+    $(document).ready(function () {
+        $("#btnMoblal").on("click", function (e) {
+            $.post('@Url.Action("Moblal", "GlobalModal")', { PageCalled: "@ViewBag.Title" }, function (data) {
+                $('#contentRow').empty();
+                $('#contentRow').append(data);
+            })
+        })
+    })
+</script>
+
+<div style="margin-top:10px">
+    <button id="btnMoblal">Show Global Modal</button>
+</div>
+
+<div id="contentRow" >
+
+</div>
 
 <div class="row">
     <!-- Account Type Table -->

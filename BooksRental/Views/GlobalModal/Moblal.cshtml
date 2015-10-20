@@ -1,0 +1,25 @@
+﻿<script>
+    $(document).ready(function () {
+        $("#moblal").modal("show");
+    })
+</script>
+<div class="modal fade" id="moblal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">The Moblal (Global Modal)</h4>
+            </div>
+            <div id="rowModalBody" class="modal-body">
+                <label>Hello there</label>
+                <label>You have called me from: 
+                    <span class="h1">@ViewBag.PageCalled !</span>
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <input type="text" class="form-control" style="display:none" id="hiddenValue">
+        </div>
+    </div>
+</div>
