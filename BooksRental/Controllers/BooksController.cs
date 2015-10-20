@@ -31,6 +31,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: Books/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -46,6 +47,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.BookGenderId = new SelectList(repository.getAllBookGenders(), "BookGenderId", "Name");
@@ -57,7 +59,7 @@ namespace BooksRental.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "BookId,Name,Description,BookGenderId")] Book book, HttpPostedFileBase ImageFile, string hiddenArray)
         {
             if (ModelState.IsValid)
@@ -86,6 +88,7 @@ namespace BooksRental.Controllers
 
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,6 +109,7 @@ namespace BooksRental.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "BookId,Name,Description,ImageUrl,BookGenderId")] Book book)
         {
             if (ModelState.IsValid)
@@ -119,6 +123,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -136,6 +141,7 @@ namespace BooksRental.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Book book = repository.Get(id);

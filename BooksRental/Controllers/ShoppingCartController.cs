@@ -14,12 +14,13 @@ namespace BooksRental.Controllers
         private ShoppingCartRepository repository = new ShoppingCartRepository(GlobalVariables.ConnectionString);
 
         // GET: ShoppingCart
-        [Authorize()]
+        [Authorize(Roles = "Admin,Renter")]
         public ActionResult Index()
         {
             var cartBook = repository.getAllByAccountId(int.Parse(User.Identity.Name));
             return View(cartBook);
         }
+        [Authorize(Roles = "Admin,Renter")]
         public ActionResult addBookToCart(int? id)
         {
             if (id.HasValue) {
@@ -36,6 +37,7 @@ namespace BooksRental.Controllers
             TempData["Success"] = "The book has been rented";
             return RedirectToAction("Index", "Books");
         }
+        [Authorize(Roles = "Admin,Renter")]
         public ActionResult removeBookFromCart(int id)
         {
             ShoppingCart objSC = repository.Get(id);

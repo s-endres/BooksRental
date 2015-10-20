@@ -17,12 +17,14 @@ namespace BooksRental.Controllers
         private BookGenderRepository repository = new BookGenderRepository(GlobalVariables.ConnectionString);
 
         // GET: BookGenders
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(repository.GetAll());
         }
 
         // GET: BookGenders/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: BookGenders/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +51,7 @@ namespace BooksRental.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "BookGenderId,Name")] BookGender bookGender)
         {
             if (ModelState.IsValid)
@@ -61,6 +65,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: BookGenders/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +85,7 @@ namespace BooksRental.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "BookGenderId,Name")] BookGender bookGender)
         {
             if (ModelState.IsValid)
@@ -91,6 +97,7 @@ namespace BooksRental.Controllers
         }
 
         // GET: BookGenders/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +115,7 @@ namespace BooksRental.Controllers
         // POST: BookGenders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             BookGender bookGender = repository.Get(id);

@@ -22,7 +22,7 @@ namespace BooksRental.Controllers
         /// GET: Accounts
         /// </summary>
         /// <returns>All accounts register in the system</returns>
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(repository.GetAll());
@@ -34,7 +34,7 @@ namespace BooksRental.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>The account object</returns>
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -53,7 +53,7 @@ namespace BooksRental.Controllers
         /// GET: Create account form
         /// </summary>
         /// <returns>View</returns>
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.AccountTypeId = new SelectList(repository.GetAccountTypes(), "AccountTypeId", "Name");
@@ -69,7 +69,7 @@ namespace BooksRental.Controllers
         /// <returns>View with account object</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "AccountId,Email,Password,Name,AccountTypeId")] Account account)
         {
             ViewBag.AccountTypeId = new SelectList(repository.GetAccountTypes(), "AccountTypeId", "Name", account.AccountTypeId);
@@ -97,7 +97,7 @@ namespace BooksRental.Controllers
         /// </summary>
         /// <param name="id">Account id</param>
         /// <returns>View with account obkect</returns>
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,7 +122,7 @@ namespace BooksRental.Controllers
         /// <returns>Success:Index View, Fail:Error 500 View, Invalid Form: View Account object</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "AccountId,Email,Password,Name,AccountTypeId")] Account account)
         {
             if (ModelState.IsValid)
@@ -149,7 +149,7 @@ namespace BooksRental.Controllers
         /// </summary>
         /// <param name="id">Account id</param>
         /// <returns>View account object</returns>
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -171,7 +171,7 @@ namespace BooksRental.Controllers
         /// <returns>Index view </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Account account = repository.Get(id);
@@ -264,6 +264,7 @@ namespace BooksRental.Controllers
         /// GET: LogOut
         /// </summary>
         /// <returns>Index Home View</returns>
+        [Authorize()]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
